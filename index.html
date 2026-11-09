@@ -1,93 +1,597 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Walnut Technologies</title>
-<meta name="description" content="Walnut Technologies LLC makes Self Tape: Teleprompter, the audition reader for actors. Coming soon to the App Store.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Cellipse cx='18' cy='19' rx='13' ry='14' fill='%235B3A22'/%3E%3Cpath d='M18 6 C15 12, 21 17, 18 22 C15 27, 19 30, 18 33' stroke='%23EFE9DF' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="app-icon.png">
+<title>Self Tape: Teleprompter · Audition reader for actors</title>
+<meta name="description" content="Be your own reader. Self Tape scrolls your sides as you speak and plays the other lines on cue, so you can self-tape anytime on iPhone.">
+<link rel="icon" href="../app-icon.png">
+<link rel="apple-touch-icon" href="../app-icon.png">
+<meta property="og:title" content="Self Tape: Teleprompter">
+<meta property="og:description" content="Be your own reader. The audition reader for actors, on iPhone.">
+<meta property="og:image" content="https://walnuttechnologiesllc.com/app-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Nunito:wght@800;900&family=Courier+Prime:wght@400;700&display=swap">
 <style>
-*{box-sizing:border-box}
-body{margin:0;-webkit-font-smoothing:antialiased}
-[hidden]{display:none!important}
-/* Layout: one centered product card on a calm page; tiny company line above, legal footer below. System fonts only. */
+/* Layout: walnuttechnologiesllc.com/selftape landing. Split hero with the live sides demo beside the headline, one wide hands-free demo, a split "be your own reader" section, a who's-reading picker with the second-device card, a four-step "sides to sent" row, a compact privacy line, plain Free/Pro pricing and an olive closing band. Lime is reserved for actions, the live line and selected states. Brand page: cream in both viewer themes on purpose. */
 :root{
-  --bg:#EFE9DF; --card:#1F1A15; --card-ink:#F4EEE4; --card-muted:#B3A795; --ink:#2A2118; --muted:#7A6D5E;
-  --gold:#FFD659; --walnut:#5B3A22; --field:#2D2620; --field-line:#4A4036;
-  --display: ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
-  --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --cream:#F6F1E8; --beige:#ECE3D6; --paper:#FFFDF8; --ink:#1C1C17; --muted:#5E5A48; --line:#E1D7C7;
+  --olive:#4A5229; --oliveSoft:#6B7340; --lime:#DEF599; --limeDeep:#C9E66B; --limeSoft:#F2FAD9;
+  --gold:#FFD659; --amber:#8A5A00; --lav:#C9BAED; --lavInk:#4A3A86; --sky:#A8C6EA; --peach:#F2C78C; --teal:#8FB5B8; --tealInk:#2F5558;
+  --red:#D9544A; --cam:#1A1916;
+  --display:"Nunito", ui-rounded, system-ui, sans-serif;
+  --body:"Figtree", -apple-system, system-ui, sans-serif;
+  --mono:"Courier Prime","Courier New",ui-monospace,monospace;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#14110E;--card:#221C17;--ink:#EDE5D9;--muted:#9C8F7E;--field:#2E2721;--walnut:#D9B48C;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#14110E;--card:#221C17;--ink:#EDE5D9;--muted:#9C8F7E;--field:#2E2721;--walnut:#D9B48C;color-scheme:dark}
-html,body{min-height:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.page{min-height:100svh;max-width:560px;margin:0 auto;padding-block:40px 28px;display:flex;flex-direction:column;gap:28px;justify-content:center}
-.co{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.02em;color:var(--muted);text-align:center}
-.card{background:var(--card);color:var(--card-ink);border-radius:28px;padding:clamp(28px,6vw,48px);display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center}
-.icon{width:88px;height:88px;border-radius:22.5%;display:block}
-header{display:flex;align-items:center;justify-content:center;gap:12px}
-.mark{width:36px;height:36px;flex:none}
-.word{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--walnut)}
-.badge{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,7vw,40px);line-height:1.1;letter-spacing:-.02em;margin:0;text-wrap:balance}
-.sub{margin:0;color:var(--card-muted);max-width:30em;text-wrap:pretty}
-form{display:flex;gap:8px;width:100%;max-width:400px;margin-top:6px;flex-wrap:wrap}
-input{flex:1 1 200px;min-width:0;background:var(--field);border:1.5px solid var(--field-line);color:var(--card-ink);border-radius:999px;padding:13px 18px;font:inherit}
-input::placeholder{color:var(--card-muted)}
-input:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-button{flex:1 0 auto;background:var(--gold);color:#1F1A15;border:0;border-radius:999px;padding:13px 22px;font:inherit;font-weight:700;cursor:pointer}
-.fine{font-size:12.5px;color:var(--card-muted);margin:0}
-.thanks{font-weight:600;color:var(--gold);margin:6px 0 0}
-footer{text-align:center;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
-footer a{color:var(--muted);text-underline-offset:3px}
-.links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:light}}
+:root[data-theme="dark"]{color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.g{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.w{max-width:1120px;margin:0 auto}
+a:focus-visible,button:focus-visible{outline:3px solid var(--olive);outline-offset:3px}
+
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(246,241,232,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.s{border-color:var(--line)}
+.nav .w{display:flex;align-items:center;gap:22px;min-height:66px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:34px;height:34px;border-radius:9px}
+.brand b{font:900 23px/1 var(--display);letter-spacing:-.3px;color:var(--olive)}
+.nav .sp{flex:1}
+.nav .lk{font:600 15px var(--body);text-decoration:none;color:var(--muted)}
+.nav .lk:hover{color:var(--ink)}
+@media (max-width:620px){.nav .lk{display:none}}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:800 15px/1 var(--body);border:1.5px solid var(--ink);border-radius:999px;padding:12px 18px;text-decoration:none;background:var(--lime);color:var(--ink);cursor:pointer;min-height:44px}
+.pill.c{background:transparent}
+
+.badge{display:inline-flex;align-items:center;gap:10px;background:#000;color:#fff;border:1.5px solid #A6A6A6;border-radius:12px;padding:8px 18px 8px 14px;text-decoration:none;min-height:56px}
+.badge svg{width:24px;height:28px;flex:none}
+.badge small{display:block;font:500 11px/1.1 -apple-system,system-ui,sans-serif}
+.badge b{display:block;font:600 21px/1.1 -apple-system,system-ui,sans-serif;letter-spacing:-.01em}
+
+[hidden]{display:none!important}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sr{display:flex;flex:1;min-width:0}
+.sr input{flex:1;min-width:0;font:600 16px var(--body);border:1.5px solid var(--ink);border-radius:999px;padding:12px 16px;background:var(--paper);color:var(--ink);min-height:48px}
+.sr input:focus-visible{outline:3px solid var(--olive);outline-offset:2px}
+.notify{display:flex;gap:8px;width:min(420px,100%)}
+.notify .pill{flex:none}
+.thx{font:700 15px var(--body)}
+.final .notify{margin:0 auto}
+.final .thx{color:var(--lime)}
+.final .sr input{border-color:var(--cream)}
+.final .notify .pill{border-color:var(--cream)}
+.soon-wrap{display:contents}
+/* Type */
+.k{display:block;font:800 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--oliveSoft);margin-bottom:14px}
+h1,h2{font-family:var(--display);font-weight:900;text-wrap:balance;margin:0}
+h1{font-size:clamp(48px,7vw,88px);line-height:.95;letter-spacing:-2px}
+h2{font-size:clamp(34px,4.6vw,54px);line-height:1.02;letter-spacing:-1.2px;margin-bottom:16px}
+.hl{background:linear-gradient(transparent 60%,var(--lime) 60%,var(--lime) 90%,transparent 90%);padding:0 .04em}
+.lead{font-size:clamp(17px,1.9vw,20px);line-height:1.55;color:var(--muted);max-width:32em;margin:0}
+h3{font:800 18px/1.3 var(--body);margin:0 0 6px}
+.center{text-align:center}
+.center .lead{margin:0 auto}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;padding-block:56px 72px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:36px;padding-block:36px 56px}}
+.hero h1{margin-bottom:22px}
+.hero .lead{margin-bottom:30px}
+.ctas{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center}
+.free{font:600 14px/1.4 var(--body);color:var(--muted)}
+.free b{color:var(--ink)}
+
+/* Sides card */
+.sides{background:var(--paper);border-radius:24px;padding:24px clamp(18px,3.5vw,34px) 28px;box-shadow:0 1px 0 var(--line),0 40px 70px -40px rgba(60,50,20,.5);font:400 16px/1.6 var(--mono);color:#3A372D;rotate:1.2deg}
+@media (max-width:900px){.sides{rotate:0deg}}
+.sides .hd{display:flex;justify-content:space-between;align-items:center;gap:10px;font:700 12px/1 var(--mono);letter-spacing:.05em;color:#8B8574;margin-bottom:10px}
+.mic{display:inline-flex;align-items:center;gap:6px;font:800 11px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--lime);border-radius:999px;padding:6px 10px}
+.mic i{width:7px;height:7px;border-radius:50%;background:var(--olive);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.ln{padding:6px 12px 8px;border-radius:14px;transition:background .35s,box-shadow .35s;margin:2px 0}
+.ln .cue{text-align:center;font-weight:700;letter-spacing:.06em}
+.ln.rd .cue{color:var(--lavInk)}
+.ln.me{color:var(--amber)}
+.ln.live{background:var(--limeSoft);box-shadow:inset 0 0 0 1.5px var(--limeDeep)}
+.ln.me .wd{opacity:.5;transition:opacity .2s}
+.ln.me .wd.said{opacity:1;text-decoration:underline 3px var(--limeDeep);text-underline-offset:4px}
+.ln .on{display:block;text-align:center;font:800 11px/1 var(--body);letter-spacing:.04em;color:var(--lavInk);height:0;opacity:0;transition:opacity .3s,height .3s,margin .3s}
+.ln.live .on{opacity:1;height:14px;margin-top:6px}
+
+/* Sections */
+.sec{padding-block:96px}
+@media (max-width:700px){.sec{padding-block:64px}}
+.sec.alt{background:var(--beige)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
+.two.flip > :first-child{order:2}
+@media (max-width:900px){.two{grid-template-columns:1fr;gap:36px}.two.flip > :first-child{order:0}}
+.ticks{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;align-items:flex-start;font-size:16.5px}
+.ticks li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234A5229' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/18px no-repeat}
+.demo{display:flex;justify-content:center}
+
+/* Hands-free: wide landscape phone */
+.landwrap{margin-top:48px}
+.land{position:relative;width:100%;max-width:880px;margin:0 auto;aspect-ratio:19.5/9;background:#0B0B0A;border-radius:clamp(26px,5vw,52px);box-shadow:0 50px 80px -40px rgba(40,30,10,.55);container-type:inline-size}
+.scr{position:absolute;inset:clamp(6px,1.1vw,11px);border-radius:clamp(20px,4.2vw,42px);overflow:hidden;background:var(--cam)}
+.wall{position:absolute;inset:0;background:radial-gradient(120% 140% at 45% 50%,transparent 55%,rgba(0,0,0,.28) 100%),url(backdrop.jpg) center/cover #6F8C93}
+.island{position:absolute;left:1.6cqw;top:50%;translate:0 -50%;width:3.4cqw;height:12.5cqw;border-radius:99px;background:#050505}
+.island::after{content:"";position:absolute;left:50%;top:32%;translate:-50% 0;width:.6cqw;height:.6cqw;border-radius:50%;background:#34C759}
+.ctl{position:absolute;left:9.2cqw;top:50%;translate:0 -50%;display:flex;flex-direction:column;align-items:center;gap:1.15cqw}
+.ctl span{width:4.9cqw;height:4.9cqw;border-radius:50%;background:#EEE8DC;display:grid;place-items:center}
+.ctl span.on{background:var(--lime)}
+.ctl svg{width:45%;height:45%;fill:none;stroke:#1C1C17;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ctl .aa{font:800 1.9cqw/1 -apple-system,system-ui,sans-serif;color:#1C1C17;letter-spacing:-.02em}
+.ctl .aa em{font-style:normal;display:block;line-height:1;white-space:nowrap;transform:translateY(.06em)}
+.ctl .recb{width:7.6cqw;height:7.6cqw;background:#EEE8DC}
+.ctl .recb::after{content:"";width:76%;height:76%;border-radius:50%;background:var(--red)}
+.panel{position:absolute;right:7.6cqw;top:4.6%;bottom:8.6%;width:33%;background:#272420;border-radius:2.6cqw;display:flex;flex-direction:column;overflow:hidden}
+.panel .ph{display:flex;align-items:center;gap:.9cqw;white-space:nowrap;padding:2.2cqw 2.2cqw 0;font:700 1.12cqw/1 -apple-system,system-ui,var(--body);color:#E8E2D6}
+.panel .ph i{width:1cqw;height:1cqw;border-radius:50%;background:var(--lime);flex:none}
+.panel .ph .sp{flex:1}
+.tp{position:relative;flex:1;overflow:hidden;margin-top:1.4cqw;-webkit-mask-image:linear-gradient(transparent,#000 12%,#000 82%,transparent);mask-image:linear-gradient(transparent,#000 12%,#000 82%,transparent)}
+.tp .roll{position:absolute;left:0;right:0;top:0;padding:0 2.2cqw 0 3cqw;transition:transform .8s cubic-bezier(.3,.7,.2,1);font:500 2.35cqw/1.38 -apple-system,system-ui,var(--body)}
+.tp .bl{margin:0 0 1.8cqw;position:relative}
+.tp .bl::before{content:"";position:absolute;left:-1.25cqw;top:.2cqw;bottom:.2cqw;width:.32cqw;border-radius:2px;background:currentColor;opacity:0;transition:opacity .3s}
+.tp .bl.cur::before{opacity:1}
+.tp .bl b{display:block;font:600 1.3cqw/1.2 -apple-system,system-ui,var(--body);letter-spacing:.03em;margin-bottom:.3cqw}
+.tp .dir{color:#A8A296;font-weight:400}
+.tp .r{color:#6CC3F7}
+.tp .m{color:var(--gold);font-weight:700}
+.tp .m .wd{opacity:.55;transition:opacity .2s}
+.tp .m .wd.said{opacity:1}
+.tp .m .wd.now{opacity:1;text-decoration:underline .3cqw var(--lime);text-underline-offset:.5cqw}
+.cap{font-size:13px;color:var(--muted);text-align:center;margin:16px 0 0}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;max-width:880px;margin:44px auto 0}
+@media (max-width:760px){.facts{grid-template-columns:1fr;gap:18px}}
+.facts p{margin:0;color:var(--muted);font-size:15.5px}
+
+/* Portrait phone */
+.phone{width:min(320px,84vw);background:#0E0E0C;border-radius:46px;padding:10px;box-shadow:0 40px 70px -34px rgba(40,30,10,.55)}
+.phone .in{border-radius:37px;background:var(--cream);overflow:hidden;padding:52px 16px 22px;display:flex;flex-direction:column;gap:12px;position:relative}
+.phone .in::before{content:"";position:absolute;top:13px;left:50%;translate:-50% 0;width:92px;height:26px;border-radius:999px;background:#0E0E0C}
+.sheethd{display:flex;align-items:center;gap:10px}
+.sheethd .x{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font:700 14px/1 var(--body)}
+.sheethd b{flex:1;font:900 19px/1 var(--display)}
+.sheethd .done{font:800 13px/1 var(--body);background:var(--lime);border:1.5px solid var(--ink);border-radius:999px;padding:8px 13px}
+.rr{background:var(--beige);border-radius:20px;padding:14px}
+.rr .top{display:flex;align-items:center;gap:9px;font:800 15px var(--body)}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:900 13px var(--display);flex:none}
+.rr .src{font:600 12px var(--body);color:var(--muted);margin-left:auto}
+.bars{display:flex;align-items:center;gap:2px;height:30px;margin:12px 0}
+.bars i{flex:1;background:var(--olive);border-radius:2px;opacity:.75;transition:height .35s}
+.bars.play i{animation:wave .55s ease-in-out infinite alternate}
+@keyframes wave{to{transform:scaleY(.35)}}
+.stp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.stp .lbl{font:700 12px var(--body);color:var(--muted);flex-basis:100%}
+.stp button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:var(--cream);font:800 20px/1 var(--body);cursor:pointer}
+.stp .val{flex:1;text-align:center;font:800 13px var(--body)}
+.hear{margin-top:12px;width:100%;font-size:13px;padding:10px;background:var(--cream)}
+.memo{display:flex;align-items:center;gap:10px;border:1.5px dashed #C9BFAE;border-radius:16px;padding:12px;font:700 13px/1.3 var(--body);color:var(--muted)}
+.memo .ic{width:30px;height:30px;border-radius:50%;background:var(--peach);display:grid;place-items:center;flex:none}
+.memo svg,.ic svg{width:16px;height:16px;fill:none;stroke:#1C1C17;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Who's reading */
+.who{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:40px;align-items:start}
+@media (max-width:760px){.who{grid-template-columns:1fr}}
+.ch{text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:22px;padding:20px;cursor:pointer;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s,box-shadow .2s}
+.ch:hover{border-color:#CBBFA9}
+.ch[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.ch .dot{width:44px;height:44px;border-radius:50%;flex:none;display:grid;place-items:center}
+.ch svg{width:21px;height:21px;fill:none;stroke:#1C1C17;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ch b{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font:800 17px/1.25 var(--body)}
+.ch .d{display:block;font-size:15px;line-height:1.5;color:var(--muted);margin-top:5px}
+.ch .more{display:block;font-size:14.5px;line-height:1.5;color:var(--ink);margin-top:0;max-height:0;overflow:hidden;opacity:0;transition:max-height .35s,opacity .3s,margin .3s}
+.ch[aria-pressed="true"] .more{max-height:120px;opacity:1;margin-top:10px}
+.tag{font:800 10px/1 var(--body);letter-spacing:.08em;background:var(--lime);border:1px solid var(--ink);border-radius:999px;padding:4px 7px}
+
+.device{margin-top:16px;background:var(--paper);border:1.5px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,32px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:center}
+@media (max-width:760px){.device{grid-template-columns:1fr}}
+.device h3{font:900 clamp(24px,3vw,32px)/1.08 var(--display);letter-spacing:-.6px;margin-bottom:10px}
+.duo{position:relative;width:100%;aspect-ratio:1.7}
+.lap{position:absolute;left:0;top:4%;width:78%}
+.lap .lid{background:#1C1C17;border-radius:14px 14px 4px 4px;padding:8px;aspect-ratio:16/10}
+.lap .lid .s{background:var(--cream);height:100%;border-radius:6px;padding:8% 9%;display:flex;flex-direction:column;justify-content:center;gap:7%}
+.lap .base{height:10px;background:#C9C1B2;border-radius:0 0 12px 12px;margin:0 -5%}
+.lap .who2{font:800 clamp(9px,1.3vw,11px)/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lap .big{font:900 clamp(15px,2.4vw,24px)/1.15 var(--display);color:var(--lavInk)}
+.wv{display:flex;gap:3px;align-items:center;height:clamp(16px,3vw,26px)}
+.wv i{width:5px;border-radius:3px;background:var(--lavInk);opacity:.55;animation:wave .5s ease-in-out infinite alternate}
+.mini{position:absolute;right:0;bottom:0;width:27%;aspect-ratio:9/19;background:#0E0E0C;border-radius:22px;padding:5px;box-shadow:0 20px 34px -16px rgba(40,30,10,.6)}
+.mini .s{height:100%;border-radius:18px;background:var(--cam);padding:30% 10% 12%;display:flex;flex-direction:column;gap:8px;font:700 clamp(7px,1.1vw,10px)/1.4 var(--body)}
+.mini .m{color:var(--gold)}
+.mini .r{color:var(--lav);opacity:.7}
+.mini .ok{margin-top:auto;align-self:center;font:800 clamp(7px,1vw,9px)/1 var(--body);background:var(--lime);color:#1C1C17;border-radius:999px;padding:5px 8px;white-space:nowrap}
+
+/* Sides to sent */
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:44px;counter-reset:s}
+@media (max-width:1000px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.flow{grid-template-columns:1fr}}
+.st{background:var(--cream);border-radius:24px;padding:22px;display:flex;flex-direction:column;min-width:0}
+.st .n{font:900 15px/1 var(--display);color:var(--oliveSoft);margin-bottom:10px}
+.st p{margin:0;color:var(--muted);font-size:15px}
+.ui{margin-top:18px;background:var(--paper);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:176px}
+.opt{display:flex;align-items:center;gap:10px;border:1.5px solid var(--ink);border-radius:14px;padding:10px 12px;font:800 13px/1.2 var(--body)}
+.opt small{display:block;font:600 11.5px var(--body);color:var(--muted)}
+.opt .ic{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex:none}
+.lab{border-radius:10px;padding:7px 10px;font:600 12.5px/1.35 var(--body)}
+.lab b{font-weight:800;letter-spacing:.04em;font-size:11px;display:block}
+.mk{display:flex;gap:5px;flex-wrap:wrap}
+.mk button{font:700 11.5px/1 var(--body);border:1.5px solid var(--ink);background:transparent;border-radius:999px;padding:9px 8px;cursor:pointer;min-height:36px}
+.mk button[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.myl{font:700 13.5px/1.45 var(--body);color:var(--amber);background:var(--limeSoft);box-shadow:inset 0 0 0 1.5px var(--limeDeep);border-radius:10px;padding:8px 10px;min-height:56px}
+.rl{font:600 12.5px/1.4 var(--body);color:var(--lavInk);padding:0 2px}
+.take{display:flex;gap:10px;align-items:center}
+.thumb{width:56px;aspect-ratio:16/10;border-radius:8px;background:url(backdrop.jpg) center/cover #6F8C93;flex:none;position:relative}
+.thumb::after{content:"";position:absolute;left:52%;top:50%;translate:-50% -50%;border-left:9px solid var(--cream);border-top:6px solid transparent;border-bottom:6px solid transparent}
+.take b{display:block;font:800 13px var(--body)}
+.take small{display:block;font:600 11px var(--body);color:var(--muted)}
+.send{margin-top:auto;font:800 12.5px/1 var(--body);border:1.5px solid var(--ink);border-radius:999px;padding:10px;text-align:center}
+
+/* Privacy line */
+.priv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:8px}
+@media (max-width:760px){.priv{grid-template-columns:1fr;gap:18px}}
+.priv div{display:flex;gap:14px;align-items:flex-start}
+.priv .ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none}
+.priv .ic svg{width:19px;height:19px}
+.priv p{margin:0;color:var(--muted);font-size:15px}
+.privhd{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:28px}
+.privhd h2{margin:0;font-size:clamp(28px,3.4vw,38px)}
+
+/* Pricing */
+.plans{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:16px;margin-top:44px;text-align:left}
+@media (max-width:820px){.plans{grid-template-columns:1fr}}
+.pc{border-radius:26px;padding:clamp(22px,3vw,32px);min-width:0}
+.pc.free2{background:var(--lime);border:1.5px solid var(--ink)}
+.pc.pro{background:var(--paper);border:1.5px solid var(--line)}
+.pc h3{font:900 26px/1.1 var(--display);letter-spacing:-.4px;margin-bottom:6px}
+.pc .sub{color:var(--muted);font-size:15.5px;margin:0 0 18px}
+.pc.free2 .sub{color:#3E4420}
+.pc .big{font:900 56px/1 var(--display);letter-spacing:-1.5px;margin:6px 0 18px}
+.pr{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.pr b{font:800 16px var(--body)}
+.pr small{display:block;font:500 14px var(--body);color:var(--muted)}
+.pr .amt{margin-left:auto;font:900 24px/1 var(--display);white-space:nowrap}
+.pr .amt span{font:700 13px var(--body);color:var(--muted)}
+.save{font:800 10px/1 var(--body);letter-spacing:.06em;background:var(--lime);border:1px solid var(--ink);border-radius:999px;padding:4px 7px;margin-left:6px;vertical-align:2px}
+
+/* Final */
+.final{background:var(--olive);color:var(--cream);text-align:center;padding-block:96px}
+.final img{width:96px;height:96px;border-radius:24px;margin-bottom:22px;box-shadow:0 18px 34px -16px rgba(0,0,0,.6)}
+.final h2{color:var(--cream);margin:0 auto 12px}
+.final h2 em{font-style:normal;color:var(--lime)}
+.final p{color:#DDE2C5;margin:0 auto 30px}
+.foot .w{display:flex;flex-wrap:wrap;gap:8px 22px;padding-block:28px;font-size:14px;color:var(--muted)}
+.foot .sp{flex:1}
+.foot a{text-decoration:underline;text-underline-offset:3px;color:var(--ink)}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
-<main class="page">
-  <header>
-    <svg class="mark" viewBox="0 0 36 36" aria-hidden="true">
-      <ellipse cx="18" cy="19" rx="13" ry="14" fill="var(--walnut)"/>
-      <path d="M18 6 C15 12, 21 17, 18 22 C15 27, 19 30, 18 33" stroke="var(--bg)" stroke-width="2" fill="none" stroke-linecap="round"/>
-    </svg>
-    <span class="word">Walnut Technologies</span>
-  </header>
 
-  <section class="card" aria-labelledby="app">
-    <img class="icon" src="app-icon.png" alt="Self Tape app icon" width="88" height="88">
-    <span class="badge">Coming soon to the App Store</span>
-    <h1 id="app"><a href="selftape/" style="color:inherit;text-decoration:none">Self Tape: Teleprompter</a></h1>
-    <p class="sub">The audition reader for actors. Your script scrolls as you speak, and your reader plays the other lines on cue, so you can tape a scene on your own.</p>
-    <form id="notify">
-      <label for="email" style="position:absolute;left:-9999px">Email address</label>
-      <input id="email" type="email" required placeholder="Your email" autocomplete="email">
-      <button type="submit">Notify me</button>
-    </form>
-    <p class="thanks" id="thanks" hidden>Thanks. We'll email you once, on launch day.</p>
-    <p class="fine"><a href="selftape/" style="color:inherit;font-weight:700">See what it does</a> · One email when it's out. Nothing else. <a href="selftape/privacy.html" style="color:inherit">Privacy</a></p>
-  </section>
+<header class="nav g" id="nav">
+  <div class="w">
+    <a class="brand" href="#top"><img src="../app-icon.png" alt=""><b>self tape</b></a>
+    <span class="sp"></span>
+    <a class="lk" href="#how">How it works</a>
+    <a class="lk" href="#pricing">Pricing</a>
+    <a class="lk" href="support/">Support</a>
+    <a class="pill" href="https://apps.apple.com/app/id6826434213" data-navcta>Get the app</a>
+  </div>
+</header>
 
-  <footer>
-    <div class="links"><a href="selftape/">Self Tape</a><a href="selftape/support/">Support</a><a href="selftape/privacy.html">Privacy</a><span>hello@walnuttechnologiesllc.com</span></div>
-    <div>© 2026 Walnut Technologies LLC</div>
-  </footer>
+<main id="top">
+<!-- HERO -->
+<section class="g">
+  <div class="w hero">
+    <div>
+      <span class="k">Audition reader for iPhone</span>
+      <h1>Be your own <span class="hl">reader.</span></h1>
+      <p class="lead">Self Tape scrolls your sides as you speak and plays the other lines on cue. Tape tonight, with or without someone to read with you.</p>
+      <div class="ctas">
+        <span class="soon-wrap"><span data-soon><form class="notify"><label class="sr"><span class="vh">Email address</span><input type="email" required placeholder="Your email" autocomplete="email"></label><button type="submit" class="pill">Notify me</button></form><span class="thx" hidden>Thanks. We'll email you once, on launch day.</span></span><span data-live hidden><a class="badge" href="https://apps.apple.com/app/id6826434213" data-store aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 28" aria-hidden="true"><path fill="#fff" d="M19.6 14.9c0-3.1 2.5-4.6 2.6-4.7-1.4-2.1-3.6-2.4-4.4-2.4-1.9-.2-3.6 1.1-4.6 1.1-.9 0-2.4-1.1-4-1-2 0-3.9 1.2-5 3-2.1 3.7-.5 9.2 1.5 12.2 1 1.5 2.2 3.1 3.8 3 1.5-.1 2.1-1 3.9-1s2.3 1 3.9 1c1.6 0 2.7-1.5 3.7-3 1.2-1.7 1.6-3.3 1.7-3.4-.1 0-3.1-1.2-3.1-4.8zM16.6 5.9c.8-1 1.4-2.4 1.2-3.8-1.2.1-2.6.8-3.5 1.8-.8.9-1.4 2.3-1.2 3.7 1.3.1 2.7-.7 3.5-1.7z"/></svg>
+          <span><small>Download on the</small><b>App Store</b></span>
+        </a></span></span>
+        <span class="free"><b>Rehearse free.</b><br>First 3 auditions free to record.</span>
+      </div>
+    </div>
+    <div class="sides" aria-label="Example sides: your words light up as you say them, and the reader's line plays on cue">
+      <div class="hd"><span>INT. HARBOR OFFICE – NIGHT</span><span class="mic"><i></i>Listening</span></div>
+      <div class="ln rd" data-k="r1"><div class="cue">JORDAN</div>You came all this way just to tell me that?<span class="on">▶ Plays on cue</span></div>
+      <div class="ln me" data-k="m1"><div class="cue">SAM (YOU)</div><span class="wd">I</span> <span class="wd">came</span> <span class="wd">because</span> <span class="wd">nobody</span> <span class="wd">else</span> <span class="wd">would.</span></div>
+      <div class="ln rd" data-k="r2"><div class="cue">JORDAN</div>Then say it properly.<span class="on">▶ Plays on cue</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HANDS-FREE -->
+<section class="sec alt g" id="how">
+  <div class="w">
+    <div class="center">
+      <span class="k">Hands-free</span>
+      <h2>Your script scrolls as you speak.</h2>
+      <p class="lead">Prop your iPhone up, press record and act. Self Tape listens and moves with you, so you never touch the screen mid-take.</p>
+    </div>
+    <div class="landwrap">
+      <div class="land" aria-label="The Record screen: your lines scroll as you say them"><div class="scr">
+        <div class="wall"></div><span class="island" aria-hidden="true"></span>
+        <div class="ctl" aria-hidden="true">
+          <span><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span>
+          <span class="aa"><em>A<small style="font-size:.72em">A</small></em></span>
+          <span class="on"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M17 6.5a4 4 0 0 1 0 5M19.5 4a7.5 7.5 0 0 1 0 10"/></svg></span>
+          <span><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></span>
+          <span class="recb"></span>
+          <span><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span>
+        </div>
+        <div class="panel">
+          <div class="ph"><i></i><span>Who's reading: Automated reader</span><span class="sp"></span><span>Scene 1</span></div>
+          <div class="tp"><div class="roll" id="roll">
+            <p class="bl dir">(A harbor office, late. SAM stands in the doorway, coat still on.)</p>
+            <p class="bl r"><b>JORDAN</b>You came all this way just to tell me that?</p>
+            <p class="bl m"><b>SAM (YOU)</b><span class="wd">I</span> <span class="wd">came</span> <span class="wd">because</span> <span class="wd">nobody</span> <span class="wd">else</span> <span class="wd">would.</span></p>
+            <p class="bl r"><b>JORDAN</b>Then say it properly.</p>
+            <p class="bl m"><b>SAM (YOU)</b><span class="wd">Fine.</span> <span class="wd">I'm</span> <span class="wd">sorry.</span> <span class="wd">Is</span> <span class="wd">that</span> <span class="wd">what</span> <span class="wd">you</span> <span class="wd">wanted?</span></p>
+            <p class="bl r"><b>JORDAN</b>It's a start.</p>
+            <p class="bl m"><b>SAM (YOU)</b><span class="wd">Then</span> <span class="wd">let</span> <span class="wd">me</span> <span class="wd">finish</span> <span class="wd">it.</span></p>
+            <p class="bl r"><b>JORDAN</b>Go on, then.</p>
+          </div></div>
+        </div>
+      </div></div>
+          </div>
+    <div class="facts">
+      <div><h3>Your lines in gold</h3><p>Every other part gets its own color, so you always know where you are.</p></div>
+      <div><h3>Upright or sideways</h3><p>On a tripod or propped on a shelf. The script sits where your eyes need it.</p></div>
+      <div><h3>Nothing in the way</h3><p>While you tape, only the record button stays on screen.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BE YOUR OWN READER -->
+<section class="sec g">
+  <div class="w two flip">
+    <div>
+      <span class="k">Recorded reader</span>
+      <h2>No reader tonight? Read the other lines yourself.</h2>
+      <p class="lead">Record the other parts once and shift the voice pitch so they sound like someone else. Self Tape plays each line the moment yours ends.</p>
+      <ul class="ticks">
+        <li>A different pitch for each character</li>
+        <li>Or use a friend's voice memo. They don't need the app.</li>
+        <li>Tape at 2 a.m. without asking anyone for a favor</li>
+      </ul>
+    </div>
+    <div class="demo">
+      <div class="phone"><div class="in">
+        <div class="sheethd"><span class="x" aria-hidden="true">✕</span><b>Recorded reader</b><span class="done">Done</span></div>
+        <div class="rr">
+          <div class="top"><span class="av" style="background:var(--lav)">J</span>Jordan<span class="src">Your voice</span></div>
+          <div class="bars" id="bars" aria-hidden="true"></div>
+          <div class="stp"><span class="lbl">Voice pitch</span>
+            <button type="button" id="pDown" aria-label="Deeper">−</button>
+            <span class="val" id="pVal" aria-live="polite">Deeper 2</span>
+            <button type="button" id="pUp" aria-label="Higher">+</button>
+          </div>
+          <button type="button" class="pill hear" id="hear">▶ Hear a line</button>
+        </div>
+        <div class="rr">
+          <div class="top"><span class="av" style="background:var(--teal)">M</span>Marcus<span class="src">Friend's memo</span></div>
+          <div class="bars" id="bars2" aria-hidden="true"></div>
+        </div>
+        <div class="memo"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span>Use a voice memo or video from Files…</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO'S READING -->
+<section class="sec alt g">
+  <div class="w">
+    <div class="center">
+      <span class="k">Who's reading</span>
+      <h2>Any reader. The script keeps up.</h2>
+      <p class="lead">Choose for each scene. Tap one to see how it works.</p>
+    </div>
+    <div class="who" role="group" aria-label="Who's reading">
+      <button type="button" class="ch" aria-pressed="true"><span class="dot" style="background:var(--lime)"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M8 7v4a4 4 0 0 0 8 0V7a4 4 0 0 0-8 0"/><path d="M5 11a7 7 0 0 0 14 0"/></svg></span><span><b>Recorded reader <span class="tag">RECOMMENDED</span></b><span class="d">Your own recordings, or a friend's.</span><span class="more">Each line plays the moment yours ends. Pause or ad-lib and it waits for you.</span></span></button>
+      <button type="button" class="ch" aria-pressed="false"><span class="dot" style="background:var(--lav)"><svg viewBox="0 0 24 24"><path d="M4 10v4"/><path d="M8 7v10"/><path d="M12 4v16"/><path d="M16 8v8"/><path d="M20 11v2"/></svg></span><span><b>Automated reader</b><span class="d">The iPhone reads the other parts.</span><span class="more">Pick a voice and set the pace. Play it from a laptop or second phone to get the sound off camera.</span></span></button>
+      <button type="button" class="ch" aria-pressed="false"><span class="dot" style="background:var(--peach)"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20a5 5 0 0 1 10 0"/><path d="M11 20a5 5 0 0 1 10 0"/></svg></span><span><b>Live reader</b><span class="d">Someone in the room or on a call.</span><span class="more">The script follows both of your voices, so neither of you loses your place.</span></span></button>
+      <button type="button" class="ch" aria-pressed="false"><span class="dot" style="background:var(--sky)"><svg viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h13"/></svg></span><span><b>No reader</b><span class="d">Just you and the script.</span><span class="more">For monologues and slates. The other parts pass in silence.</span></span></button>
+    </div>
+    <div class="device">
+      <div>
+        <span class="k">Reader on another device</span>
+        <h3>Put the reader's voice where your eyeline is.</h3>
+        <p class="lead" style="font-size:16.5px">Open the reader on a laptop or second phone. Scan a code with its camera and it plays in the web browser. Nothing to install.</p>
+      </div>
+      <div class="duo" aria-hidden="true">
+        <div class="lap"><div class="lid"><div class="s">
+          <span class="who2">Jordan · reading</span>
+          <span class="big">"Then say it properly."</span>
+          <span class="wv"><i style="height:40%"></i><i style="height:90%;animation-delay:.1s"></i><i style="height:60%;animation-delay:.2s"></i><i style="height:100%;animation-delay:.05s"></i><i style="height:50%;animation-delay:.15s"></i><i style="height:75%;animation-delay:.25s"></i><i style="height:35%;animation-delay:.1s"></i></span>
+        </div></div><div class="base"></div></div>
+        <div class="mini"><div class="s">
+          <span class="m">I came because nobody else would.</span>
+          <span class="r">JORDAN · Then say it properly.</span>
+          <span class="ok">Reader connected</span>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIDES TO SENT -->
+<section class="sec g">
+  <div class="w">
+    <div class="center">
+      <span class="k">From sides to sent</span>
+      <h2>Four steps to a finished tape.</h2>
+    </div>
+    <div class="flow">
+      <div class="st"><span class="n">01</span><h3>Add your sides</h3><p>A PDF from Files or Mail, or scan paper pages.</p>
+        <div class="ui">
+          <div class="opt"><span class="ic" style="background:var(--lav)"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg></span><span>From sides (PDF)<small>Files or Mail</small></span></div>
+          <div class="opt"><span class="ic" style="background:var(--peach)"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M9 7l1.5-3h3L15 7"/></svg></span><span>Scan paper sides<small>Use the camera</small></span></div>
+        </div></div>
+      <div class="st"><span class="n">02</span><h3>Every line labeled</h3><p>Each character gets a color. Yours is always gold.</p>
+        <div class="ui">
+          <div class="lab" style="background:#EDE7FA;color:var(--lavInk)"><b>JORDAN</b>You came all this way…</div>
+          <div class="lab" style="background:#FFF3C4;color:var(--amber)"><b>SAM · YOU</b>I came because nobody…</div>
+          <div class="lab" style="background:#E4EEEF;color:var(--tealInk)"><b>MARCUS</b>Both of you, stop.</div>
+        </div></div>
+      <div class="st"><span class="n">03</span><h3>Rehearse free</h3><p>Hide your lines to test yourself. Try it:</p>
+        <div class="ui">
+          <div class="rl">JORDAN · You came all this way just to tell me that?</div>
+          <div class="myl" id="myTxt"></div>
+          <div class="mk" role="group" aria-label="My lines"><button type="button" data-m="show" aria-pressed="false">Show</button><button type="button" data-m="first" aria-pressed="true">First letters</button><button type="button" data-m="hidden" aria-pressed="false">Hidden</button></div>
+        </div></div>
+      <div class="st"><span class="n">04</span><h3>Tape and send</h3><p>Slate, takes saved under each scene, sent from the app.</p>
+        <div class="ui">
+          <div class="take"><span class="thumb"></span><span><b>Slate</b><small>0:12</small></span></div>
+          <div class="take"><span class="thumb"></span><span><b>Take 2</b><small>1:52</small></span></div>
+          <div class="send">Send take</div>
+        </div></div>
+    </div>
+    <p class="cap">Need to fix a line? Change who says it, or mark the word your line ends on.</p>
+  </div>
+</section>
+
+<!-- PRIVATE -->
+<section class="g" style="padding-block:8px 96px">
+  <div class="w">
+    <div class="privhd"><h2>Your work stays yours.</h2><span class="k" style="margin:0">Private by design</span></div>
+    <div class="priv">
+      <div><span class="ic" style="background:var(--beige)"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="m4 4 16 16"/></svg></span><span><h3>No account</h3><p>Open it and start. No sign-up, no password.</p></span></div>
+      <div><span class="ic" style="background:var(--beige)"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span><h3>On your iPhone</h3><p>Your sides and takes stay on your phone. We never keep them.</p></span></div>
+      <div><span class="ic" style="background:var(--beige)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg></span><span><h3>Never used to train AI</h3><p>Your acting and your scripts are never used to train AI.</p></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec alt g" id="pricing">
+  <div class="w">
+    <div class="center">
+      <span class="k">Pricing</span>
+      <h2>Try it on real auditions first.</h2>
+    </div>
+    <div class="plans">
+      <div class="pc free2">
+        <h3>Free</h3>
+        <p class="sub">Everything included, to get started.</p>
+        <div class="big">$0</div>
+        <ul class="ticks" style="margin:0">
+          <li>Rehearse any scene, anytime</li>
+          <li>Record your first 3 auditions with every feature</li>
+        </ul>
+      </div>
+      <div class="pc pro">
+        <h3>Keep taping</h3>
+        <p class="sub">After your 3 free auditions, pick what fits.</p>
+        <div class="pr"><span><b>Yearly <span class="save">SAVE 33%</span></b><small>Every audition for a year</small></span><span class="amt">$79.99<span> /yr</span></span></div>
+        <div class="pr"><span><b>Monthly</b><small>Cancel anytime</small></span><span class="amt">$9.99<span> /mo</span></span></div>
+        <div class="pr"><span><b>One audition</b><small>Retakes for 5 days</small></span><span class="amt">$1.99</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final g" id="get">
+  <div class="w">
+    <img src="../app-icon.png" alt="Self Tape app icon">
+    <h2>Your next self-tape, <em>tonight.</em></h2>
+    <p>Self Tape: Teleprompter. For iPhone. <span data-soon>Coming soon.</span></p>
+    <span class="soon-wrap"><span data-soon><form class="notify"><label class="sr"><span class="vh">Email address</span><input type="email" required placeholder="Your email" autocomplete="email"></label><button type="submit" class="pill">Notify me</button></form><span class="thx" hidden>Thanks. We'll email you once, on launch day.</span></span><span data-live hidden><a class="badge" href="https://apps.apple.com/app/id6826434213" data-store aria-label="Download on the App Store">
+      <svg viewBox="0 0 24 28" aria-hidden="true"><path fill="#fff" d="M19.6 14.9c0-3.1 2.5-4.6 2.6-4.7-1.4-2.1-3.6-2.4-4.4-2.4-1.9-.2-3.6 1.1-4.6 1.1-.9 0-2.4-1.1-4-1-2 0-3.9 1.2-5 3-2.1 3.7-.5 9.2 1.5 12.2 1 1.5 2.2 3.1 3.8 3 1.5-.1 2.1-1 3.9-1s2.3 1 3.9 1c1.6 0 2.7-1.5 3.7-3 1.2-1.7 1.6-3.3 1.7-3.4-.1 0-3.1-1.2-3.1-4.8zM16.6 5.9c.8-1 1.4-2.4 1.2-3.8-1.2.1-2.6.8-3.5 1.8-.8.9-1.4 2.3-1.2 3.7 1.3.1 2.7-.7 3.5-1.7z"/></svg>
+      <span><small>Download on the</small><b>App Store</b></span>
+    </a></span></span>
+  </div>
+</section>
 </main>
+
+<footer class="foot g"><div class="w"><span>© 2026 Walnut Technologies LLC</span><span class="sp"></span><a href="support/">Support</a><a href="privacy.html">Privacy</a><a href="mailto:hello@walnuttechnologiesllc.com">hello@walnuttechnologiesllc.com</a></div></footer>
+
 <script>
-// Sign-ups go to the Walnut Technologies Google Form (owned by hello@).
-var FORM_ID = "1FAIpQLSeH5wWjx8s_OTCXQcVchOtitzDwZTJOjRIK_g41rCakP9_Z9w";
-var EMAIL_FIELD = "entry.760235341";
-document.getElementById('notify').addEventListener('submit', function (e) {
-  e.preventDefault();
-  var data = new FormData();
-  data.append(EMAIL_FIELD, document.getElementById('email').value.trim());
-  fetch('https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse', { method: 'POST', mode: 'no-cors', body: data })
-    .catch(function () {});
-  e.target.hidden = true;
-  document.getElementById('thanks').hidden = false;
-});
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){ nav.classList.toggle('s', window.scrollY > 8); }, {passive:true});
+  function q(s){ return document.querySelector(s); }
+  function all(s, r){ return [].slice.call((r||document).querySelectorAll(s)); }
+
+  // Launch switch: until APP_STORE_URL is filled in, show "Notify me" instead of the App Store button.
+  var APP_STORE_URL = "https://apps.apple.com/app/id6826434213";
+  var FORM_ID = "1FAIpQLSeH5wWjx8s_OTCXQcVchOtitzDwZTJOjRIK_g41rCakP9_Z9w", EMAIL_FIELD = "entry.760235341";
+  if (APP_STORE_URL) {
+    all('[data-soon]').forEach(function(e){ e.hidden = true; });
+    all('[data-live]').forEach(function(e){ e.hidden = false; });
+    all('[data-store]').forEach(function(a){ a.href = APP_STORE_URL; });
+    var nc = q('[data-navcta]'); nc.textContent = 'Get the app'; nc.href = APP_STORE_URL;
+  }
+  all('.notify').forEach(function(f){ f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(); data.append(EMAIL_FIELD, f.querySelector('input').value.trim());
+    fetch('https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse', { method: 'POST', mode: 'no-cors', body: data }).catch(function(){});
+    f.hidden = true; f.parentNode.querySelector('.thx').hidden = false;
+  }); });
+
+  // Hero sides
+  var L = {r1:q('[data-k="r1"]'), m1:q('[data-k="m1"]'), r2:q('[data-k="r2"]')}, hw = all('[data-k="m1"] .wd');
+  if (reduce) { L.m1.classList.add('live'); hw.slice(0,3).forEach(function(w){ w.classList.add('said'); }); }
+  else {
+    var st = [function(){ hw.forEach(function(w){ w.classList.remove('said'); }); L.r2.classList.remove('live'); L.r1.classList.add('live'); }, function(){}, function(){}, function(){ L.r1.classList.remove('live'); L.m1.classList.add('live'); }];
+    hw.forEach(function(w){ st.push(function(){ w.classList.add('said'); }); });
+    st.push(function(){ L.m1.classList.remove('live'); L.r2.classList.add('live'); }, function(){}, function(){}, function(){});
+    var i = 0; setInterval(function(){ st[i % st.length](); i++; }, 550);
+  }
+
+  // Teleprompter
+  var roll = document.getElementById('roll'), mine = all('.m', roll);
+  function setCur(el){ all('.bl', roll).forEach(function(b){ b.classList.toggle('cur', b === el); }); }
+  function rollTo(p){ var tp = roll.parentNode; var y = p.offsetTop - tp.clientHeight*0.4 + p.offsetHeight/2; roll.style.transform = 'translateY(' + (-Math.max(0, y)) + 'px)'; }
+  if (reduce) { rollTo(mine[0]); setCur(mine[0]); all('.wd', mine[0]).slice(0,3).forEach(function(w,n){ w.classList.add(n===2?'now':'said'); }); }
+  else {
+    var seq = [];
+    mine.forEach(function(p){
+      var ws = all('.wd', p);
+      seq.push(function(){ rollTo(p.previousElementSibling); setCur(p.previousElementSibling); }, function(){}, function(){}, function(){ rollTo(p); setCur(p); });
+      ws.forEach(function(w, n){ seq.push(function(){ if (n) { ws[n-1].classList.remove('now'); ws[n-1].classList.add('said'); } w.classList.add('now'); }); });
+      seq.push(function(){ ws[ws.length-1].classList.remove('now'); ws[ws.length-1].classList.add('said'); }, function(){});
+    });
+    seq.push(function(){ all('.said,.now', roll).forEach(function(w){ w.classList.remove('said','now'); }); });
+    var j = 0; setInterval(function(){ seq[j % seq.length](); j++; }, 360);
+  }
+  window.addEventListener('resize', function(){ var cur = roll.querySelector('.bl.cur'); rollTo(cur || mine[0]); });
+
+  // Voice pitch
+  var vals = ['Deeper 6','Deeper 5','Deeper 4','Deeper 3','Deeper 2','Deeper 1','As recorded','Higher 1','Higher 2','Higher 3','Higher 4','Higher 5','Higher 6'], pi = 4;
+  var seed = [5,9,6,12,8,14,10,7,13,9,6,11,8,12,5,9,13,7,10,6,8,11,7,5,9,12];
+  function bars(id, k){ var b = document.getElementById(id); b.innerHTML = ''; seed.forEach(function(h, n){ var i = document.createElement('i'); var f = 1 + (6-k)*0.08*((n%3)-1); i.style.height = Math.max(3, Math.min(30, h*1.8*f)) + 'px'; i.style.animationDelay = (n%5)*0.07 + 's'; b.appendChild(i); }); }
+  function setP(){ document.getElementById('pVal').textContent = vals[pi]; bars('bars', pi); }
+  document.getElementById('pDown').onclick = function(){ if (pi > 0) { pi--; setP(); } };
+  document.getElementById('pUp').onclick = function(){ if (pi < vals.length-1) { pi++; setP(); } };
+  var hear = document.getElementById('hear'), tm;
+  hear.onclick = function(){ var b = document.getElementById('bars'); var on = !b.classList.contains('play'); b.classList.toggle('play', on); hear.textContent = on ? '■ Stop' : '▶ Hear a line'; clearTimeout(tm); if (on) tm = setTimeout(function(){ b.classList.remove('play'); hear.textContent = '▶ Hear a line'; }, 2600); };
+  setP(); bars('bars2', 6);
+
+  // Who's reading
+  var chs = all('.ch');
+  chs.forEach(function(c){ c.onclick = function(){ chs.forEach(function(o){ o.setAttribute('aria-pressed', o === c); }); }; });
+
+  // Rehearse mask (same three choices as the app)
+  var full = 'I came because nobody else would.', myTxt = document.getElementById('myTxt');
+  function mask(m){ if (m === 'show') return full; if (m === 'hidden') return full.replace(/[^ ]/g, '•'); return full.replace(/\B[a-z]/gi, '_'); }
+  var mk = all('.mk button');
+  mk.forEach(function(b){ b.onclick = function(){ mk.forEach(function(o){ o.setAttribute('aria-pressed', o === b); }); myTxt.textContent = 'SAM · ' + mask(b.dataset.m); }; });
+  myTxt.textContent = 'SAM · ' + mask('first');
+})();
 </script>
 </body>
 </html>
